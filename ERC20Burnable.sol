@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC20/extensions/ERC20Burnable.sol)
 
 pragma solidity ^0.8.0;
 
-import "https://github.com/HaomaToken/Haoma/blob/main/ERC20.sol";
-import "https://github.com/HaomaToken/Haoma/blob/main/Context.sol";
+import "./ERC20.sol";
+import "./Context.sol";
 
 /**
  * @dev Extension of {ERC20} that allows token holders to destroy both their own
@@ -32,11 +33,7 @@ abstract contract ERC20Burnable is Context, ERC20 {
      * `amount`.
      */
     function burnFrom(address account, uint256 amount) public virtual {
-        uint256 currentAllowance = allowance(account, _msgSender());
-        require(currentAllowance >= amount, "ERC20: burn amount exceeds allowance");
-        unchecked {
-            _approve(account, _msgSender(), currentAllowance - amount);
-        }
+        _spendAllowance(account, _msgSender(), amount);
         _burn(account, amount);
     }
 }
